@@ -28,4 +28,6 @@ dec(<<>>)                    -> <<>>.
 dec_test_() ->
     [?_assertEqual(<<"Hello World">>, dec(<<114,143,150,150,153,74,129,153,156,150,142>>)),
      ?_assertEqual(<<19>>,            dec(<<61, 125>>))].
-     
+
+parse_data_test() ->
+    ?assertEqual({ok, [], <<"Hello World">>}, parse_data("", [[114,143,150,150,153,74,129,153,156,150,142], "=yend"])).
