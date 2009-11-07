@@ -2,8 +2,6 @@
 
 -export([parse/1]).
 
-parse(Article) when is_binary(Article) ->
-    parse(binary_to_list(Article));
 parse(Article) ->
     Lines = string:tokens(Article, "\r\n"),
     parse_lines(Lines).
@@ -29,5 +27,5 @@ parse_data(uue, Header, Lines) ->
 parse_test() ->
     {ok, Article} = file:read_file("../test/data/yenc/singlepart/00000005.ntx"),
     {ok, Expected} = file:read_file("../test/data/yenc/singlepart/testfile.txt"),
-    {ok, _, Bin} = parse(Article),
+    {ok, _, Bin} = parse(binary_to_list(Article)),
     ?assertEqual(Bin, Expected).
