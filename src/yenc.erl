@@ -8,7 +8,8 @@ parse_data(Header, Lines) ->
     Bin  = dec(Data),
     {ok, Meta, Bin}.
 
-parse_header(Header) -> Header.
+parse_header(Header) ->
+    [ list_to_tuple(string:tokens(X, "=")) || X<-string:tokens(Header, " ")].
 
 %% collect data body up to ending =yend line
 parse_body(Lines) ->
@@ -29,5 +30,9 @@ dec_test_() ->
     [?_assertEqual(<<"Hello World">>, dec(<<114,143,150,150,153,74,129,153,156,150,142>>)),
      ?_assertEqual(<<19>>,            dec(<<61, 125>>))].
 
-parse_data_test() ->
+parse_data_bin_test() ->
     ?assertEqual({ok, [], <<"Hello World">>}, parse_data("", [[114,143,150,150,153,74,129,153,156,150,142], "=yend"])).
+
+parse_data_header_test_() ->
+    [?_assertEqual({ok, [{"foo", "bar"}], <<>>}, parse_data("foo=bar", [[],"=yend"])),
+     ?_assertEqual({ok, [{"foo", "bar"}, {"file", "foobar.txt"}], <<>>}, parse_data("foo=bar file=foobar.txt", [[],"=yend"]))].
