@@ -2,8 +2,6 @@
 -export([parse/1]).
 -include_lib("xmerl/include/xmerl.hrl").
 
-%% -record(nzb, {group, subject, parts=[]}).
-
 parse(NZB) when is_binary(NZB) -> parse(binary_to_list(NZB));
 parse(NZB) ->
     { Xml, _Rest } = xmerl_scan:string(NZB),
