@@ -15,7 +15,7 @@ parse_lines([_|Lines]) -> parse_lines(Lines).
 
 -include_lib("eunit/include/eunit.hrl").
 
-parse_yenc_test() ->
+parse_yenc_singlepart_test() ->
     {ok, Article} = file:read_file("../test/data/yenc/singlepart/00000005.ntx"),
     {ok, Expected} = file:read_file("../test/data/yenc/singlepart/testfile.txt"),
     {ok, Meta, Bin} = parse(binary_to_list(Article)),
