@@ -5,9 +5,12 @@
 parse(NZB) when is_binary(NZB) -> parse(binary_to_list(NZB));
 parse(NZB) ->
     { Xml, _Rest } = xmerl_scan:string(NZB),
-    [ #xmlText{value=Group}|_T ] =  xmerl_xpath:string("//file/groups/group/text()", Xml),
-    MessageIds = [ MessageId ||#xmlText{value=MessageId} <- xmerl_xpath:string("//file/segments/segment/text()", Xml) ],
-    { ok, Group, MessageIds }.
+    Groups     = get_text("//file/groups/group/text()", Xml),
+    MessageIds = get_text("//file/segments/segment/text()", Xml),
+    { ok, Groups, MessageIds }.
+
+get_text(XpathString, Xml) ->
+    [ Text || #xmlText{value=Text} <- xmerl_xpath:string(XpathString, Xml) ].
 
 -include_lib("eunit/include/eunit.hrl").
 
