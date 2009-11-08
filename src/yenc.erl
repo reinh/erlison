@@ -19,8 +19,8 @@ parse_body([Line|Rest], Acc) ->
     parse_body(Rest, [Line|Acc]).
     
 decode(List) when is_list(List) -> decode(list_to_binary(List));
-decode(<<$=, X, Rest/binary>>)  -> <<(X-106 rem 256):8, (decode(Rest))/binary>>;
-decode(<<X, Rest/binary>>)      -> <<(X-42 rem 256):8, (decode(Rest))/binary>>;
+decode(<<$=, X, Rest/binary>>)  -> <<(X-106):8, (decode(Rest))/binary>>;
+decode(<<X, Rest/binary>>)      -> <<(X-42):8, (decode(Rest))/binary>>;
 decode(<<>>)                    -> <<>>.
 
 -include_lib("eunit/include/eunit.hrl").
