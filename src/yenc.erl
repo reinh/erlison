@@ -18,7 +18,6 @@ parse_body([[$=, $y, $e, $n, $d | _] | _], Acc) -> lists:reverse(Acc);
 parse_body([Line|Rest], Acc) ->
     parse_body(Rest, [Line|Acc]).
     
-
 dec(List) when is_list(List) -> dec(list_to_binary(List));
 dec(<<$=, X, Rest/binary>>)  -> <<(X-106 rem 256):8, (dec(Rest))/binary>>;
 dec(<<X, Rest/binary>>)      -> <<(X-42 rem 256):8, (dec(Rest))/binary>>;
