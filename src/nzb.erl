@@ -13,7 +13,8 @@ parse(NZB) ->
 
 parse_nzb_test() ->
     {ok, Xml} = file:read_file("../test/data/nzb.xml"),
-    { ok, Group, MessageIds } = parse(Xml),
-    ?assertEqual(Group, "alt.binaries.newzbin"),
+    { ok, Groups, MessageIds } = parse(Xml),
+    ?assertEqual(Groups, ["alt.binaries.newzbin",
+                          "alt.binaries.mojo"]),
     ?assertEqual(MessageIds, ["123456789abcdef@news.newzbin.com",
                               "987654321fedbca@news.newzbin.com"]).
