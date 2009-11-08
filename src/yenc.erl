@@ -14,7 +14,7 @@ parse_header(Header) ->
 %% collect data body up to ending =yend line
 parse_body(Lines) ->
     parse_body(Lines, []).
-parse_body([[$=, $y, $e, $n, $d | _] | _], Acc) -> lists:reverse(Acc);
+parse_body([["=yend"++_|_]], Acc) -> lists:reverse(Acc);
 parse_body([Line|Rest], Acc) ->
     parse_body(Rest, [Line|Acc]).
     
