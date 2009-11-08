@@ -23,4 +23,3 @@ parse_yenc_singlepart_test() ->
     ?assertEqual(Bin, Expected),
     ?assertEqual(Meta, [{"line", "128"}, {"size", "584"}, {"name", "testfile.txt"}]),
     ?assertEqual(byte_size(Bin), Size).
-
