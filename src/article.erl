@@ -15,9 +15,10 @@ parse_lines([_|Lines]) -> parse_lines(Lines).
 
 -include_lib("eunit/include/eunit.hrl").
 
-parse_test() ->
+parse_yenc_test() ->
     {ok, Article} = file:read_file("../test/data/yenc/singlepart/00000005.ntx"),
     {ok, Expected} = file:read_file("../test/data/yenc/singlepart/testfile.txt"),
-    {ok, _, Bin} = parse(binary_to_list(Article)),
-    ?assertEqual(Bin, Expected).
+    {ok, Meta, Bin} = parse(binary_to_list(Article)),
+    ?assertEqual(Bin, Expected),
+    ?assertEqual(Meta, [{"line", "128"}, {"size", "584"}, {"name", "testfile.txt"}]).
 
