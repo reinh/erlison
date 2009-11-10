@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nzb-config>
+    <!-- how many download threads to use at once -->
+    <thread-count>1</thread-count>
+    
+    <bandwidth-limit>0</bandwidth-limit>
+    
+    <!-- usenet settings -->
+    <usenet>		
+        <host>somehost</host>
+        <port>119</port>
+        <secure>false</secure>
+        <login>somelogin</login>
+        <password>somepass</password>
+    </usenet>     
+    
+    <!-- newzbin's settings -->
+    <newzbin>
+        <login>somelogin</login>
+        <password>somepass</password>
+    </newzbin>
+    
+    <!-- local server settings -->
+    <server>        
+        <login>somelogin</login>    
+        <password>somepass</password>
+        <port>someport</port>        
+        <streamPort>someport</streamPort>        
+        <streamPath>/path/to/stream/folder</streamPath>        
+    </server>
+    
+    <!-- Option, defaults to true. Only grabs them if a segment is bad -->
+    <skip-pars>true</skip-pars>
+    
+    <!-- store the downloads by group, then nzb file name. Defaults to true -->
+    <store-by-group>false</store-by-group>
+
+
+    <!--
+        Okay, so we need to specify "groups".
+
+        A group is a unit of work.  It consists of a title, a directory of where
+        to save downloads, filters, and post processors to run against said downloads.
+
+        For the post processors (par-repair, unrar, avi-merge) you dont need to 
+        specify a path if it is in your PATH environment variable, if it isn't
+        however, we need to know where it's located, so add the following node.
+         <path>/some/path/to/unrar</path>
+    -->
+    
+    <group title="Movies">
+        <!-- where are we doing the saving and what not -->    
+        <save-directory>/some/path/to/save</save-directory>
+
+        <!-- This is optional if you want to watch another directory for downloads 
+        <monitor-directory>/some/path/to/monitor</monitor-directory>
+        -->
+
+        <filter-regex>
+            <pattern>(sample).*[(.mpg)|(.mpeg)|(.avi)]$</pattern>
+        </filter-regex>
+        
+        <!-- just run this in case we had a corrupted download, and want to repair -->
+        <par-repair/>
+        
+        <!-- unrar any files downloaded -->
+        <unrar/>
+
+        <!-- The script command will be executed in the save directory. 
+             Also the first argument passed in is the path to the save directory -->
+        <script>
+            <command>/some/command/file.sh</command>
+        </script>
+        
+    </group>
+    
+    <group title="TV">
+        <save-directory>/home/ming/tmp/nzb/TV</save-directory>        
+        
+        <par-repair/>                
+        
+        <unrar/>
+    </group>
+    
+    <group title="Music">
+        <save-directory>/home/ming/tmp/nzb/Music</save-directory>
+        
+        
+        <par-repair/>                        
+
+        <unrar/>        
+        
+        <mp3-rename>        
+            <pattern>${artist}/${album}/${number} - ${title}</pattern>
+        </mp3-rename>       
+    </group>
+    
+</nzb-config>
