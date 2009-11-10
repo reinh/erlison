@@ -24,8 +24,8 @@
     <server>        
         <login>somelogin</login>    
         <password>somepass</password>
-        <port>someport</port>        
-        <streamPort>someport</streamPort>        
+        <port>119</port>        
+        <streamPort>119</streamPort>        
         <streamPath>/path/to/stream/folder</streamPath>        
     </server>
     
